@@ -1,3 +1,4 @@
+import pandas as pd
 import pyarrow.parquet as pq
 import datetime as dt
 
@@ -61,9 +62,6 @@ ratecode_dim.columns = ['ratecode']
 # set index for primary key of ratecode_dim dimension table
 ratecode_dim['ratecode_id'] = ratecode_dim.index
 
-print(ratecode_dim.ratecode.info())
-print(ratecode_dim['ratecode'].max())
-
 # add column that contains ratecode name for corresponding ratecode id
 
 ratecode_name = []
@@ -90,3 +88,8 @@ fact_table = fact_table.merge(ratecode_dim, left_on='trip_id', right_on='ratecod
 
 # rename fact table columns to match data model
 fact_table.columns = ['trip_id','vendor_id', 'datetime_id', 'passenger_count', 'trip_distance', 'ratecode_id', 'store_and_fwd_flag', 'pickup_zone', 'dropoff_zone', 'fare_amount_id']
+
+fact_table.to_csv('fact_table.csv')
+datetime_dim.to_csv('datetime_dim.csv')
+ratecode_dim.to_csv('ratecode_dim.csv')
+fare_amount_dim.to_csv('fare_amount_dim.csv')

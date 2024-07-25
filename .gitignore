@@ -1,4 +1,9 @@
+# specific files
+
 commands.txt
 requirements.txt
-
 config.json
+
+# file types
+
+*.csv
